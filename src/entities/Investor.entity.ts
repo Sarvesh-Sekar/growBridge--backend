@@ -18,7 +18,7 @@ export class Investor {
   @Column()
   investorType: string;
 
-  @Column()
+  @Column("text", { array: true })
   interests: string[];
 
   @Column()

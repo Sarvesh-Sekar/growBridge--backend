@@ -5,7 +5,7 @@ import {
   JoinColumn,
   OneToOne,
 } from "typeorm";
-import { Session } from "../entities/Session.entity";
+
 
 @Entity({ name: "user" })
 export class User {
@@ -24,6 +24,5 @@ export class User {
   @Column()
   createdAt: string;
 
-  @OneToOne(() => Session, (session) => session.user)
-  session: Session;
+  
 }
