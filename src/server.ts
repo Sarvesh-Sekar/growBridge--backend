@@ -8,9 +8,7 @@ const PORT = 3000;
 
 app.use("/api", router);
 
-app.get("/", (req: Request, res: Response) => {
-  res.send("Hi World");
-});
+
 
 AppDataSource.initialize()
   .then(() => {

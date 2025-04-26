@@ -7,6 +7,7 @@ import {
 } from "typeorm";
 import { User } from "./User.entity";
 
+@Entity({ name: "startup" })
 export class Startup {
   @PrimaryGeneratedColumn("uuid")
   id: string;
@@ -45,6 +46,6 @@ export class Startup {
   userId: string;
 
   @OneToOne(() => User, (user) => user.id)
-  @JoinColumn({ name: "userId" })
+  @JoinColumn()
   user: User;
 }

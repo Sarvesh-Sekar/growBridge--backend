@@ -13,5 +13,5 @@ export const AppDataSource = new DataSource({
   database: "growBridge",
   logging: true,
   synchronize: true,
-  entities: [User,  Startup,Investor],
+  entities: [User,Startup,Investor],
 });

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { Startup } from "../entities/Startup.entity";
+import { User } from "../entities/User.entity";
 import { AppDataSource } from "../dataSource/dataSource";
 
 export class startupController {
@@ -17,6 +18,11 @@ export class startupController {
         userId,
         location,
       } = req.body;
+
+      const userRepo = AppDataSource.getRepository(User);
+      const user = await userRepo.findOne({ where: { id: userId } });
+
+      if (!user) return res.status(400).json({ message: "User not found" });
       const startupRepo = AppDataSource.getRepository(Startup);
       const category = await startupController.findCategory(
         burnRate,
@@ -39,6 +45,9 @@ export class startupController {
       newStartup.location = location;
 
       await startupRepo.save(newStartup);
+      user.startup = newStartup;
+      await userRepo.save(user);
+
       return res
         .status(200)
         .json({ message: "Startup Details Added Successfully" });
@@ -70,7 +79,7 @@ export class startupController {
       case burnRate > 45 && returnRate > 3 && marketCap > 150 && runAway > 12:
         category = "Grown/Mature Startup";
         break;
-      case burnRate > 35 && returnRate < 0.5 && marketCap > 0 && runAway <6 :
+      case burnRate > 35 && returnRate < 0.5 && marketCap > 0 && runAway < 6:
         category = "Pivoting/Struggling";
         break;
     }

@@ -2,12 +2,15 @@ import {
   Entity,
   PrimaryGeneratedColumn,
   Column,
-  JoinColumn,
+  CreateDateColumn,
   OneToOne,
+  JoinColumn,
 } from "typeorm";
 
+import { Investor } from "./Investor.entity";
+import { Startup } from "./Startup.entity";
 
-@Entity({ name: "user" })
+@Entity({ name: "users" })
 export class User {
   @PrimaryGeneratedColumn("uuid")
   id: string;
@@ -18,11 +21,15 @@ export class User {
   @Column()
   password: string;
 
-  @Column()
+  @Column({ nullable: true })
   role: string;
 
-  @Column()
+  @CreateDateColumn()
   createdAt: string;
 
-  
+  @OneToOne(() => Startup, (startup) => startup.user)
+  startup?: Startup;
+
+  @OneToOne(() => Investor, (investor) => investor.user)
+  investor?: Investor;
 }

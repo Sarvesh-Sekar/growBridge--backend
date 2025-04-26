@@ -25,6 +25,7 @@ export class AuthHelper {
         expiresIn: "1d",
       }
     );
+    console.log(token);
     return token;
   }
 }

@@ -11,7 +11,7 @@ export class UserController {
         return res.status(400).json({ message: "All fields are required" });
       const userRepo = AppDataSource.getRepository(User);
       const user = await userRepo.findOne({ where: { email: email } });
-      if (!user)
+      if (user)
         return res.status(400).json({ message: "User already exists" });
       const newUser = new User();
       const hashedPassword = await AuthHelper.encryptText(password);
@@ -44,7 +44,8 @@ export class UserController {
       if (!isPasswordValid) {
         return res.status(401).json({ message: "Invalid credentials" });
       }
-      const token = AuthHelper.generateToken(user.id, user.role);
+      const token = await  AuthHelper.generateToken(user.id, user.role);
+      console.log(token);
       return res.status(200).json({ token: token });
     } catch (error) {
       throw error;
