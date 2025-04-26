@@ -16,6 +16,9 @@ export class Investor {
   investorName: string;
 
   @Column()
+  profileImage: string;
+
+  @Column()
   investorType: string;
 
   @Column("text", { array: true })

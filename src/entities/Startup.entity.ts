@@ -19,6 +19,9 @@ export class Startup {
   marketCap: number;
 
   @Column()
+  profileImage: string;
+
+  @Column()
   type: string;
 
   @Column()
@@ -44,6 +47,8 @@ export class Startup {
 
   @Column()
   userId: string;
+
+  
 
   @OneToOne(() => User, (user) => user.id)
   @JoinColumn()

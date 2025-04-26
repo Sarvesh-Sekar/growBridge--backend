@@ -13,10 +13,12 @@ export class startupController {
         burnRate,
         returnRate,
         runAway,
+        profileImage,
         email,
         contactNo,
         userId,
         location,
+        
       } = req.body;
 
       const userRepo = AppDataSource.getRepository(User);
@@ -35,6 +37,7 @@ export class startupController {
       newStartup.startupName = startupName;
       newStartup.type = type;
       newStartup.category = category;
+      newStartup.profileImage = profileImage;
       newStartup.marketCap = marketCap;
       newStartup.burnRate = burnRate;
       newStartup.returnRate = returnRate;

@@ -6,8 +6,16 @@ import { AppDataSource } from "../dataSource/dataSource";
 export class investorController {
   static async postInvestor(req: Request, res: Response): Promise<any> {
     try {
-      const { investorName, investorType, interests, userId, location } =
-        req.body;
+      const {
+        investorName,
+        investorType,
+        interests,
+        email,
+        userId,
+        contactNo,
+        location,
+        profileImage,
+      } = req.body;
 
       const userRepo = AppDataSource.getRepository(User);
       const user = await userRepo.findOne({ where: { id: userId } });
@@ -17,7 +25,10 @@ export class investorController {
       const investorRepo = AppDataSource.getRepository(Investor);
       const newInvestor = new Investor();
       newInvestor.investorName = investorName;
+      newInvestor.contactNo = contactNo;
       newInvestor.investorType = investorType;
+      newInvestor.email = email;
+      newInvestor.profileImage = profileImage;
       newInvestor.interests = interests;
       newInvestor.userId = userId;
       newInvestor.location = location;
